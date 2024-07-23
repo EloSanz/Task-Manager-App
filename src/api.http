@@ -1,0 +1,41 @@
+
+POST http://localhost:8000/auth/register
+Content-Type: application/json
+
+{
+  "username": "test4",
+  "password": "password"
+}
+### Loggin
+POST http://localhost:8000/auth/login
+Content-Type: application/json
+
+{
+  "username": "test4",
+  "password": "password"
+}
+### GET ALL TASK
+GET http://localhost:8000/task
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwidXNlcm5hbWUiOiJ0ZXN0NCIsImlhdCI6MTcyMTY2ODQ1MiwiZXhwIjoxNzIxNjcyMDUyfQ.FtziitzEjZR1fUsClOaJI1gV4eyg9I4TabS2zEzy_pU
+### NEW TASK
+POST http://localhost:8000/task/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywidXNlcm5hbWUiOiJqb2huZG9lIiwiaWF0IjoxNzIxNjYzNzI3LCJleHAiOjE3MjE2NjczMjd9.T6sbh7Bm1jv7-8L_9pbfEY9eZLUUalC1NWUBvkatn-o
+
+{
+  "title": "Read all the request 2",
+  "description": "Open your mail-box and read the whole log document",
+  "status": "IN_PROGRESS"
+}
+### UPDATE A TASK
+PUT http://localhost:8000/task/caea291e-b617-4901-9710-3ae52681fb04
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0ZXN0MiIsImlhdCI6MTcyMTY1MzU3OSwiZXhwIjoxNzIxNjU3MTc5fQ.z1ewoAXKx9G5LP1oqdn4cABM-OZgKGCcxK7U0DnviM4
+
+{
+  "status": "COMPLETED"
+}
+
+### DELETE A TASK
+DELETE http://localhost:8000/task/c51cd130-da23-43a8-bd0c-43c2a6748301
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywidXNlcm5hbWUiOiJqb2huZG9lIiwiaWF0IjoxNzIxNjYzNzI3LCJleHAiOjE3MjE2NjczMjd9.T6sbh7Bm1jv7-8L_9pbfEY9eZLUUalC1NWUBvkatn-o
