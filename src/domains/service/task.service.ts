@@ -1,6 +1,6 @@
-// src/services/TaskService.ts
 import { TaskRepository } from "../repository/task.repository.js";
-import { CreateTaskDto, UpdateTaskDto } from "../models/TaskDto.js";
+import { CreateTaskDto, UpdateTaskDto } from "../task/dto/TaskDto.js";
+
 
 export class TaskService {
   constructor(private readonly taskRepository: TaskRepository) {}

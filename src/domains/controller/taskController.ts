@@ -218,10 +218,10 @@
  */
 
 import { Request, Response } from "express";
-import { validateTask, validateTaskUpdate } from "../validators/taskValidator.js";
-import prisma from "../models/prismaClient.js";
+import { validateTask, validateTaskUpdate } from "../../validators/taskValidator.js";
+import prisma from "../../prisma/prismaClient.js";
 import { TaskRepository } from "../repository/task.repository.js";
-import { TaskModel } from "../models/task.model.js";
+import { TaskModel } from "../task/task.model.js";
 
 const taskRepository = new TaskRepository(prisma);
 

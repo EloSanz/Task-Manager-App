@@ -1,6 +1,6 @@
 import { validate } from "class-validator";
 import { plainToClass } from "class-transformer";
-import { CreateTaskDto, UpdateTaskDto } from "../models/TaskDto.js";
+import { CreateTaskDto, UpdateTaskDto } from "../domains/task/dto/TaskDto.js";
 
 export async function validateTask(data: Partial<CreateTaskDto>) {
     // Convertir el objeto plano en una instancia de la clase

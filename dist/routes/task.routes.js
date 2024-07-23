@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllTasks, getTaskById, createTask, updateTask, deleteTask, } from "../controller/taskController.js";
+import { getAllTasks, getTaskById, createTask, updateTask, deleteTask, } from "../domains/controller/taskController.js";
 import { authenticate } from "../middleware/authentication.js";
 const taskRouter = Router();
 taskRouter.use(authenticate);

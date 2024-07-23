@@ -1,5 +1,5 @@
-import { PrismaClient, Task, Status } from "@prisma/client";
-import { TaskModel } from "../models/task.model.js";
+import { PrismaClient, Status, Task } from "@prisma/client/edge";
+import { TaskModel } from "../task/task.model.js";
 
 
 export class TaskRepository {
@@ -18,7 +18,7 @@ export class TaskRepository {
             data: {
                 title: data.title,
                 description: data.description,
-                status: data.status, // `status` debe ser del tipo `Status` importado
+                status: data.status,
             },
         });
         return new TaskModel(createdTask);

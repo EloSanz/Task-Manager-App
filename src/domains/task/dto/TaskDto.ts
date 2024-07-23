@@ -1,5 +1,5 @@
 // src/dtos/TaskDto.ts
-import { Status } from "./Status.js";
+import { Status } from "@prisma/client";
 import { IsString, IsEnum, IsNotEmpty, IsOptional } from "class-validator";
 
 export class CreateTaskDto {

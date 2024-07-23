@@ -6,7 +6,7 @@ import {
   createTask,
   updateTask,
   deleteTask,
-} from "../controller/taskController.js";
+} from "../domains/controller/taskController.js";
 import { authenticate } from "../middleware/authentication.js";
 
 const taskRouter: Router = Router();

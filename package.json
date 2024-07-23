@@ -6,8 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/app.js",
-    "dev": "tsc && node src/app",
-    "dev1": "tsc && npx prisma studio && node dist/app.js",
+    "dev": "tsc && node dist/app.js",
     "nodemon": "nodemon -L"
   },
   "dependencies": {
