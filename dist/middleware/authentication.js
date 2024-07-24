@@ -14,7 +14,7 @@ export const authenticate = (req, res, next) => {
         return res.status(401).json({ message: "No token provided" });
     }
     try {
-        jwt.verify(token, jwtSecret);
+        jwt.verify(token, jwtSecret); // Don't forget
         //req.user = decoded;
         next();
     }

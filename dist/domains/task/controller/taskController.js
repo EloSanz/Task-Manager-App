@@ -4,7 +4,6 @@
  *   name: Tasks
  *   description: Operations related to tasks
  */
-
 /**
  * @swagger
  * components:
@@ -44,7 +43,6 @@
  *           format: date-time
  *           description: The date and time when the task was last updated
  */
-
 /**
  * @swagger
  * /task:
@@ -65,7 +63,6 @@
  *       500:
  *         description: Error retrieving tasks
  */
-
 /**
  * @swagger
  * /task/{id}:
@@ -93,7 +90,6 @@
  *       500:
  *         description: Error retrieving task
  */
-
 /**
  * @swagger
  * /task:
@@ -138,7 +134,6 @@
  *       500:
  *         description: Error creating task
  */
-
 /**
  * @swagger
  * /task/{id}:
@@ -192,7 +187,6 @@
  *       500:
  *         description: Error updating task
  */
-
 /**
  * @swagger
  * /task/{id}:
@@ -216,82 +210,98 @@
  *       500:
  *         description: Error deleting task
  */
-
-import { Request, Response } from "express";
-import { validateTask, validateTaskUpdate } from "../../validators/taskValidator.js";
-import prisma from "../../prisma/prismaClient.js";
+import { Router } from "express";
+import { validateTask, validateTaskUpdate, } from "../../validators/taskValidator.js";
+import prisma from "../../../prisma/prismaClient.js";
 import { TaskRepository } from "../repository/task.repository.js";
-import { TaskModel } from "../task/task.model.js";
-
+import { TaskModel } from "../task.model.js";
+import { TaskService } from "../service/task.service.js";
+import { authenticate } from "../../../middleware/authentication.js";
 const taskRepository = new TaskRepository(prisma);
-
-export async function getAllTasks(req: Request, res: Response): Promise<Response> {
+const taskService = new TaskService(taskRepository);
+export const taskRouter = Router();
+taskRouter.use(authenticate);
+taskRouter.get("/", async (req, res) => {
     try {
-        const tasks = await taskRepository.getAllTasks();
-        const taskModels = tasks.map(task => new TaskModel(task));
+        const tasks = await taskService.getAllTasks();
+        const taskModels = tasks.map((task) => new TaskModel(task));
         return res.json(taskModels);
-    } catch (error) {
+    }
+    catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Error retrieving tasks" });
     }
-}
-
-export async function getTaskById(req: Request, res: Response): Promise<Response> {
+});
+taskRouter.get("/:id", async (req, res) => {
     try {
         const taskId = req.params.id;
-        const task = await taskRepository.getTaskById(taskId);
+        const task = await taskService.getTaskById(taskId);
         if (task) {
             const taskModel = new TaskModel(task);
             return res.json(taskModel);
-        } else {
+        }
+        else {
             return res.status(404).json({ message: "Task not found" });
         }
-    } catch (error) {
+    }
+    catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Error retrieving task" });
     }
-}
-
-export async function createTask(req: Request, res: Response): Promise<Response> {
+});
+taskRouter.post("/", async (req, res) => {
     try {
         const { title, description, status } = req.body;
         const validationErrors = await validateTask({ title, description, status });
         if (validationErrors.length > 0) {
             return res.status(400).json({ errors: validationErrors });
         }
-        const newTask = await taskRepository.createTask({ title, description, status });
+        const newTask = await taskService.createTask({
+            title,
+            description,
+            status,
+        });
         const taskModel = new TaskModel(newTask);
         return res.status(201).json(taskModel);
-    } catch (error) {
+    }
+    catch (error) {
         console.error("Error:", error);
         return res.status(500).json({ message: "Error creating task" });
     }
-}
-
-export async function updateTask(req: Request, res: Response): Promise<Response> {
+});
+taskRouter.put("/", async (req, res) => {
     try {
         const taskId = req.params.id;
         const { title, description, status } = req.body;
-        const validationErrors = await validateTaskUpdate({ title, description, status });
+        const validationErrors = await validateTaskUpdate({
+            title,
+            description,
+            status,
+        });
         if (validationErrors.length > 0) {
             return res.status(400).json({ errors: validationErrors });
         }
-        const updatedTask = await taskRepository.updateTask(taskId, { title, description, status });
+        const updatedTask = await taskService.updateTask(taskId, {
+            title,
+            description,
+            status,
+        });
         const taskModel = new TaskModel(updatedTask);
         return res.json(taskModel);
-    } catch (error) {
+    }
+    catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Error updating task" });
     }
-}
-
-export async function deleteTask(req: Request, res: Response): Promise<Response> {
+});
+taskRouter.delete("/", async (req, res) => {
     try {
         const taskId = req.params.id;
-        await taskRepository.deleteTask(taskId);
+        await taskService.deleteTask(taskId);
         return res.status(200).json({ message: "Task deleted successfully" });
-    } catch (error) {
+    }
+    catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Error deleting task" });
     }
-}
+});

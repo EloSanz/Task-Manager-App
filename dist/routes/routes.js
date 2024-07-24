@@ -1,7 +1,7 @@
 import { Router } from "express";
-import taskRouter from "./task.routes.js";
-import authRouter from "./auth.routes.js";
+import { userRouter } from "../domains/user/controller/userController.js";
+import { taskRouter } from "../domains/task/controller/taskController.js";
 const router = Router();
 router.use("/task", taskRouter);
-router.use("/auth", authRouter);
+router.use("/auth", userRouter);
 export default router;

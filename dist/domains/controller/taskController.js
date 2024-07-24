@@ -8,10 +8,12 @@ import { validateTask, validateTaskUpdate } from "../../validators/taskValidator
 import prisma from "../../prisma/prismaClient.js";
 import { TaskRepository } from "../repository/task.repository.js";
 import { TaskModel } from "../task/task.model.js";
+import { TaskService } from "../service/task.service.js";
 const taskRepository = new TaskRepository(prisma);
+const taskService = new TaskService(taskRepository);
 export async function getAllTasks(req, res) {
     try {
-        const tasks = await taskRepository.getAllTasks();
+        const tasks = await taskService.getAllTasks();
         const taskModels = tasks.map(task => new TaskModel(task));
         return res.json(taskModels);
     }
@@ -23,7 +25,7 @@ export async function getAllTasks(req, res) {
 export async function getTaskById(req, res) {
     try {
         const taskId = req.params.id;
-        const task = await taskRepository.getTaskById(taskId);
+        const task = await taskService.getTaskById(taskId);
         if (task) {
             const taskModel = new TaskModel(task);
             return res.json(taskModel);
@@ -44,7 +46,11 @@ export async function createTask(req, res) {
         if (validationErrors.length > 0) {
             return res.status(400).json({ errors: validationErrors });
         }
-        const newTask = await taskRepository.createTask({ title, description, status });
+        const newTask = await taskService.createTask({
+            title,
+            description,
+            status,
+        });
         const taskModel = new TaskModel(newTask);
         return res.status(201).json(taskModel);
     }
@@ -61,7 +67,11 @@ export async function updateTask(req, res) {
         if (validationErrors.length > 0) {
             return res.status(400).json({ errors: validationErrors });
         }
-        const updatedTask = await taskRepository.updateTask(taskId, { title, description, status });
+        const updatedTask = await taskService.updateTask(taskId, {
+            title,
+            description,
+            status,
+        });
         const taskModel = new TaskModel(updatedTask);
         return res.json(taskModel);
     }
@@ -73,7 +83,7 @@ export async function updateTask(req, res) {
 export async function deleteTask(req, res) {
     try {
         const taskId = req.params.id;
-        await taskRepository.deleteTask(taskId);
+        await taskService.deleteTask(taskId);
         return res.status(200).json({ message: "Task deleted successfully" });
     }
     catch (error) {

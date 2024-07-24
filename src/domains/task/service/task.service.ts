@@ -1,5 +1,5 @@
 import { TaskRepository } from "../repository/task.repository.js";
-import { CreateTaskDto, UpdateTaskDto } from "../task/dto/TaskDto.js";
+import { CreateTaskDto, UpdateTaskDto } from "../dto/TaskDto.js";
 
 
 export class TaskService {
