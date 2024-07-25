@@ -15,9 +15,9 @@ export class UserRepository {
     });
   }
   async existById(id: number): Promise<Boolean> {
-    return await this.prisma.user.count({ where: { id } }) > 0;
+    return (await this.prisma.user.count({ where: { id } })) > 0;
   }
-  
+
   async createUser(data: {
     username: string;
     password: string;
@@ -30,5 +30,9 @@ export class UserRepository {
       }, //here the id is automatically setting
     });
     return new UserModel(createdUser);
+  }
+
+  async getTasksById(userId: number) {
+    return this.prisma.task.findMany({ where: { userId } });
   }
 }

@@ -1,0 +1,20 @@
+
+POST http://localhost:8000/user/register
+Content-Type: application/json
+
+{
+  "username": "test 9",
+  "password": "password"
+}
+### Loggin
+POST http://localhost:8000/user/login
+Content-Type: application/json
+
+{
+  "username": "test 9",
+  "password": "password"
+}
+### Get Task By User Id
+GET  http://localhost:8000/user/2/tasks
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJ0ZXN0IDkiLCJpYXQiOjE3MjE5Mjg3MTgsImV4cCI6MTcyMTkzMjMxOH0.1akoFz5VvNMUpwELHdT3eHP0THlHSrxo5jjZTDkfIgI

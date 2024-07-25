@@ -1,3 +1,162 @@
+/**
+ * @swagger
+ * tags:
+ *   name: Task
+ *   description: Operations related to tasks
+ */
+/**
+ * @swagger
+ * /task:
+ *   get:
+ *     summary: Get all tasks
+ *     tags: [Task]
+ *     responses:
+ *       '200':
+ *         description: List of all tasks
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Task'
+ *       '500':
+ *         description: Internal server error
+ */
+/**
+ * @swagger
+ * /task/{id}:
+ *   get:
+ *     summary: Get a task by ID
+ *     tags: [Task]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID of the task to retrieve
+ *     responses:
+ *       '200':
+ *         description: Task found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Task'
+ *       '400':
+ *         description: Invalid task ID format
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       '404':
+ *         description: Task not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       '500':
+ *         description: Internal server error
+ */
+/**
+ * @swagger
+ * /task:
+ *   post:
+ *     summary: Create a new task
+ *     tags: [Task]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CreateTaskDto'
+ *     responses:
+ *       '201':
+ *         description: Task created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Task'
+ *       '400':
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       '500':
+ *         description: Internal server error
+ */
+/**
+ * @swagger
+ * /task/{id}:
+ *   put:
+ *     summary: Update an existing task
+ *     tags: [Task]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID of the task to update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UpdateTaskDto'
+ *     responses:
+ *       '200':
+ *         description: Task updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Task'
+ *       '400':
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       '404':
+ *         description: Task not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       '500':
+ *         description: Internal server error
+ */
+/**
+ * @swagger
+ * /task/{id}:
+ *   delete:
+ *     summary: Delete a task
+ *     tags: [Task]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID of the task to delete
+ *     responses:
+ *       '200':
+ *         description: Task deleted successfully
+ *       '400':
+ *         description: Invalid task ID format
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       '404':
+ *         description: Task not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       '500':
+ *         description: Internal server error
+ */
 import { Router } from "express";
 import { validateTaskUpdate, } from "../../validators/taskValidator.js";
 import prisma from "../../../prisma/prismaClient.js";
@@ -22,7 +181,7 @@ taskRouter.get("/", async (req, res) => {
         return res.status(500).json({ message: "Error retrieving tasks" });
     }
 });
-function parseAndValidateId(id) {
+export function parseAndValidateId(id) {
     const parsedId = parseInt(id, 10);
     return Number.isInteger(parsedId) ? parsedId : null;
 }

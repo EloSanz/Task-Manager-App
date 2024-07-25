@@ -1,3 +1,4 @@
+import { UserNotFoundError } from "../../../errors/customErrors.js";
 import { generateToken } from "../../../middleware/auth-utils.js";
 import { CreateUserDto } from "../dto/userDto.js";
 import { UserRepository } from "../repository/user-repository.js";
@@ -6,6 +7,14 @@ import bcrypt from "bcrypt";
 
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
+
+  async getTasksById(userId: number) {
+    const userExists = await this.userRepository.existById(userId);
+    if (!userExists) {
+      throw new UserNotFoundError(userId);
+    }
+    return this.userRepository.getTasksById(userId);
+  }
 
   async createUser(dto: CreateUserDto): Promise<UserModel> {
     try {

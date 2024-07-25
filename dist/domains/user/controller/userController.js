@@ -6,6 +6,8 @@ import { UserService } from "../service/userService.js";
 import { UserModel } from "../user.model.js";
 import { validateCredentialsUserMiddleware } from "../../../middleware/validateCreateUserMiddleware.js";
 import { hashPasswordMiddleware } from "../../../middleware/hashPasswordMiddleware.js";
+import { parseAndValidateId } from "../../task/controller/taskController.js";
+import { UserNotFoundError } from "../../../errors/customErrors.js";
 dotenv.config();
 export const userRouter = Router();
 const userRepository = new UserRepository(prisma);
@@ -38,5 +40,22 @@ userRouter.post("/login", validateCredentialsUserMiddleware, async (req, res) =>
     catch (error) {
         console.log("Error:", error);
         return res.status(500).json({ message: "Error logging in" });
+    }
+});
+userRouter.get("/:id/tasks", async (req, res) => {
+    try {
+        const userId = parseAndValidateId(req.params.id);
+        if (userId === null) {
+            return res.status(400).json({ message: "Invalid user ID format" });
+        }
+        const tasks = await userService.getTasksById(userId);
+        return res.status(200).json(tasks);
+    }
+    catch (error) {
+        console.error(error);
+        if (error instanceof UserNotFoundError) {
+            return res.status(error.statusCode).json({ message: error.message });
+        }
+        return res.status(500).json({ message: "Error retrieving tasks for user" });
     }
 });

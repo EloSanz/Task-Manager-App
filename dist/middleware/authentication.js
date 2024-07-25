@@ -1,8 +1,8 @@
 /**
  * @swagger
  * tags:
- *   name: Authentication
- *   description: Authentication operations
+ *   name: User
+ *   description: User operations
  */
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";

@@ -4,7 +4,7 @@ import { taskRouter } from "../domains/task/controller/taskController.js";
 
 const router: Router = Router();
 router.use("/task", taskRouter);
-router.use("/auth", userRouter);
+router.use("/user", userRouter);
 
 
 export default router;

@@ -1,16 +1,16 @@
 /**
  * @swagger
  * tags:
- *   name: Authentication
- *   description: Authentication operations
+ *   name: User
+ *   description: User operations
  */
 
 /**
  * @swagger
- * /auth/register:
+ * /user/register:
  *   post:
  *     summary: Register a new user
- *     tags: [Authentication]
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:
@@ -71,10 +71,10 @@
  */
 /**
  * @swagger
- * /auth/login:
+ * /user/login:
  *   post:
  *     summary: Login with username and password
- *     tags: [Authentication]
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:

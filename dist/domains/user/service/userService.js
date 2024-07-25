@@ -1,8 +1,16 @@
+import { UserNotFoundError } from "../../../errors/customErrors.js";
 import { generateToken } from "../../../middleware/auth-utils.js";
 import bcrypt from "bcrypt";
 export class UserService {
     constructor(userRepository) {
         this.userRepository = userRepository;
+    }
+    async getTasksById(userId) {
+        const userExists = await this.userRepository.existById(userId);
+        if (!userExists) {
+            throw new UserNotFoundError(userId);
+        }
+        return this.userRepository.getTasksById(userId);
     }
     async createUser(dto) {
         try {
