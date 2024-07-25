@@ -7,19 +7,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
   id       Int     @id @default(autoincrement())
-  username String  @unique
-  password String
+  username String  @db.VarChar(30) @unique 
+  password String  @db.VarChar(100) // Add contraints
   @@map("Users")
-  Task Task[] @relation("UserTasks")
+  Task     Task[]  @relation("UserTasks")
 }
 
 model Task {
   id          Int     @id @default(autoincrement())
-  title       String
-  description String
+  title       String  @db.VarChar(100) 
+  description String  @db.VarChar(300)  // Add contraints
   status      Status  @default(PENDING)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -28,8 +27,6 @@ model Task {
   user        User    @relation("UserTasks", fields: [userId], references: [id])
   @@map("Tasks")
 }
-
-
 
 enum Status {
   PENDING

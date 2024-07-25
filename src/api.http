@@ -11,22 +11,28 @@ POST http://localhost:8000/auth/login
 Content-Type: application/json
 
 {
-  "username": "test 8",
+  "username": "test 9",
   "password": "password"
 }
 ### GET ALL TASK
 GET http://localhost:8000/task
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiJ0ZXN0IDgiLCJpYXQiOjE3MjE4NDIwMzEsImV4cCI6MTcyMTg0NTYzMX0.HTz3oarC-6PABuxFWZcNOD1RQOHMdWuofzk0MDLQ8n8 
+
+### GET TASK By ID
+GET http://localhost:8000/task/1
+
+
 ### NEW TASK
 POST http://localhost:8000/task/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0ZXN0NCIsImlhdCI6MTcyMTc0NTY2MSwiZXhwIjoxNzIxNzQ5MjYxfQ.4WxIG_STTN9n5DBmseiUDuyz7jaSgvo57hJyAqJaCEg
 
 {
-  "title": "Read all the request 2",
+  "title": "Read all the request 3",
   "description": "Open your mail-box and read the whole log document",
-  "status": "IN_PROGRESS"
+  "status": "IN_PROGRESS",
+  "userId": 22
 }
+
+
 ### UPDATE A TASK
 PUT http://localhost:8000/task/caea291e-b617-4901-9710-3ae52681fb04
 Content-Type: application/json

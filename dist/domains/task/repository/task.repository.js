@@ -15,6 +15,7 @@ export class TaskRepository {
                 title: data.title,
                 description: data.description,
                 status: data.status,
+                userId: data.userId
             },
         });
         return new TaskModel(createdTask);

@@ -1,318 +1,3 @@
-/**
- * @swagger
- * tags:
- *   name: Tasks
- *   description: Operations related to tasks
- */
-
-/**
- * @swagger
- * components:
- *   schemas:
- *     TaskModel:
- *       type: object
- *       required:
- *         - id
- *         - title
- *         - description
- *         - status
- *         - createdAt
- *         - updatedAt
- *         - userId
- *       properties:
- *         id:
- *           type: integer
- *           description: The unique identifier for the task
- *         title:
- *           type: string
- *           description: The title of the task
- *         description:
- *           type: string
- *           description: The description of the task
- *         status:
- *           type: string
- *           enum:
- *             - PENDING
- *             - IN_PROGRESS
- *             - COMPLETED
- *           description: The status of the task
- *         createdAt:
- *           type: string
- *           format: date-time
- *           description: The date and time when the task was created
- *         updatedAt:
- *           type: string
- *           format: date-time
- *           description: The date and time when the task was last updated
- *         userId:
- *           type: integer
- *           description: The ID of the user associated with the task
- *
- *     Error401:
- *       type: object
- *       properties:
- *         message:
- *           type: string
- *           example: "Unauthorized access. Please provide a token or a valid token."
- *         code:
- *           type: integer
- *           example: 401
- *
- *     ErrorResponse:
- *       type: object
- *       properties:
- *         message:
- *           type: string
- *           example: "An error occurred"
- *         code:
- *           type: integer
- *           example: 500
- *
- *     InvalidRequestBody:
- *       type: object
- *       properties:
- *         message:
- *           type: string
- *           example: "Invalid request body"
- *         code:
- *           type: integer
- *           example: 400
- *
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
- */
-
-/**
- * @swagger
- * /task:
- *   get:
- *     summary: Retrieve all tasks
- *     tags: [Tasks]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: A list of tasks
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/TaskModel'
- *       401:
- *         description: Unauthorized access
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error401'
- *       500:
- *         description: Error retrieving tasks
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
- */
-
-/**
- * @swagger
- * /task/{id}:
- *   get:
- *     summary: Retrieve a task by ID
- *     tags: [Tasks]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: The ID of the task to retrieve
- *         schema:
- *           type: integer
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: The task with the specified ID
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/TaskModel'
- *       400:
- *         description: Invalid task ID format
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
- *       404:
- *         description: Task not found
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
- *       500:
- *         description: Error retrieving task
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
- */
-
-/**
- * @swagger
- * /task:
- *   post:
- *     summary: Create a new task
- *     tags: [Tasks]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               title:
- *                 type: string
- *                 description: The title of the task
- *               description:
- *                 type: string
- *                 description: The description of the task
- *               status:
- *                 type: string
- *                 enum:
- *                   - PENDING
- *                   - IN_PROGRESS
- *                   - COMPLETED
- *                 description: The status of the task
- *               userId:
- *                 type: integer
- *                 description: The ID of the user associated with the task
- *             required:
- *               - title
- *               - description
- *               - status
- *               - userId
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       201:
- *         description: Task created successfully
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/TaskModel'
- *       400:
- *         description: Invalid request body
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/InvalidRequestBody'
- *       500:
- *         description: Error creating task
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
- */
-
-/**
- * @swagger
- * /task/{id}:
- *   put:
- *     summary: Update a task by ID
- *     tags: [Tasks]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: The ID of the task to update
- *         schema:
- *           type: integer
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               title:
- *                 type: string
- *                 description: The title of the task
- *               description:
- *                 type: string
- *                 description: The description of the task
- *               status:
- *                 type: string
- *                 enum:
- *                   - PENDING
- *                   - IN_PROGRESS
- *                   - COMPLETED
- *                 description: The status of the task
- *             required:
- *               - title
- *               - description
- *               - status
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: The updated task
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/TaskModel'
- *       400:
- *         description: Invalid request body
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/InvalidRequestBody'
- *       404:
- *         description: Task not found
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
- *       500:
- *         description: Error updating task
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
- */
-
-/**
- * @swagger
- * /task/{id}:
- *   delete:
- *     summary: Delete a task by ID
- *     tags: [Tasks]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: The ID of the task to delete
- *         schema:
- *           type: integer
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: Task deleted successfully
- *       404:
- *         description: Task not found
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
- *       500:
- *         description: Error deleting task
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
- */
-
 import { Request, Response, Router } from "express";
 import {
   validateTask,
@@ -322,13 +7,15 @@ import prisma from "../../../prisma/prismaClient.js";
 import { TaskRepository } from "../repository/task.repository.js";
 import { TaskModel } from "../task.model.js";
 import { TaskService } from "../service/task.service.js";
-import { authenticate } from "../../../middleware/authentication.js";
+import { UserRepository } from "../../user/repository/user-repository.js";
+import { AppError } from "../../../errors/customErrors.js";
 
 const taskRepository = new TaskRepository(prisma);
-const taskService = new TaskService(taskRepository);
+const userRepository = new UserRepository(prisma);
+const taskService = new TaskService(taskRepository, userRepository);
 
 export const taskRouter: Router = Router();
-taskRouter.use(authenticate);
+//taskRouter.use(authenticate);
 
 taskRouter.get("/", async (req: Request, res: Response) => {
   try {
@@ -341,9 +28,9 @@ taskRouter.get("/", async (req: Request, res: Response) => {
   }
 });
 
-function parseAndValidateId(id: string): number | null {
+function parseAndValidateId(id: any): number | null {
   const parsedId = parseInt(id, 10);
-  return isNaN(parsedId) ? null : parsedId;
+  return Number.isInteger(parsedId) ? parsedId : null;
 }
 
 taskRouter.get("/:id", async (req: Request, res: Response) => {
@@ -371,23 +58,37 @@ taskRouter.get("/:id", async (req: Request, res: Response) => {
 taskRouter.post("/", async (req: Request, res: Response) => {
   try {
     const { title, description, status, userId } = req.body;
-    const validationErrors = await validateTask({ title, description, status });
+    const validationErrors = await validateTaskUpdate({
+      title,
+      description,
+      status,
+    });
     if (validationErrors.length > 0) {
       return res.status(400).json({ errors: validationErrors });
     }
+
     const newTask = await taskService.createTask({
       title,
       description,
       status,
       userId,
     });
+
     const taskModel = new TaskModel(newTask);
     return res.status(201).json(taskModel);
   } catch (error) {
     console.error("Error:", error);
+
+    if (error instanceof AppError) {
+      return res.status(error.statusCode).json({ message: error.message });
+    }
+
+    // Manejo genérico de errores
     return res.status(500).json({ message: "Error creating task" });
   }
 });
+
+
 taskRouter.put("/", async (req: Request, res: Response) => {
   try {
     const taskIdString = req.params.id;

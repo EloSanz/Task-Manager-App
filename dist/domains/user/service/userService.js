@@ -10,7 +10,8 @@ export class UserService {
         }
         catch (error) {
             if (error instanceof Error) {
-                if (error.message.includes("P2002")) { // Prisma error code for unique constraint violation
+                if (error.message.includes("P2002")) {
+                    // Prisma error code for unique constraint violation
                     throw new Error("User already exists");
                 }
             }
@@ -26,5 +27,9 @@ export class UserService {
             return { user: null, token: null };
         const token = generateToken(user.id, user.username);
         return { user, token };
+    }
+    async userExists(userId) {
+        const user = await this.userRepository.findById(userId);
+        return user !== null;
     }
 }
