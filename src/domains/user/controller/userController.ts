@@ -28,7 +28,12 @@ userRouter.post(
       return res.status(201).json(userModel);
     } catch (error) {
       console.log("Error:", error);
-      return res.status(409).json({ message: "User already exists" });
+      return res
+        .status(409)
+        .json({
+          message:
+            "Username is already in use. Please choose a different username.",
+        });
     }
   }
 );

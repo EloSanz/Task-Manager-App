@@ -49,7 +49,7 @@
  *                   type: string
  *                   example: Username and password are required
  *       409:
- *         description: Conflict (username already exists)
+ *         description: Error Conflict
  *         content:
  *           application/json:
  *             schema:

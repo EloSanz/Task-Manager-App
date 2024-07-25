@@ -43,6 +43,42 @@
  *           type: string
  *           format: date-time
  *           description: The date and time when the task was last updated
+ *
+ *     Error401:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           example: "Unauthorized access. Please provide a token or a valid token."
+ *         code:
+ *           type: integer
+ *           example: 401
+ *
+ *     ErrorResponse:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           example: "An error occurred"
+ *         code:
+ *           type: integer
+ *           example: 500
+ *
+ *     InvalidRequestBody:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           example: "Invalid request body"
+ *         code:
+ *           type: integer
+ *           example: 400
+ *
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  */
 
 /**
@@ -62,8 +98,18 @@
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/TaskModel'
+ *       401:
+ *         description: Unauthorized access
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error401'
  *       500:
  *         description: Error retrieving tasks
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 
 /**
@@ -90,8 +136,16 @@
  *               $ref: '#/components/schemas/TaskModel'
  *       404:
  *         description: Task not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  *       500:
  *         description: Error retrieving task
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 
 /**
@@ -135,8 +189,16 @@
  *               $ref: '#/components/schemas/TaskModel'
  *       400:
  *         description: Invalid request body
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/InvalidRequestBody'
  *       500:
  *         description: Error creating task
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 
 /**
@@ -187,10 +249,22 @@
  *               $ref: '#/components/schemas/TaskModel'
  *       400:
  *         description: Invalid request body
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/InvalidRequestBody'
  *       404:
  *         description: Task not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  *       500:
  *         description: Error updating task
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 
 /**
@@ -213,8 +287,16 @@
  *         description: Task deleted successfully
  *       404:
  *         description: Task not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  *       500:
  *         description: Error deleting task
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 
 import { Request, Response, Router } from "express";
@@ -244,8 +326,6 @@ taskRouter.get("/", async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Error retrieving tasks" });
   }
 });
-
-
 
 taskRouter.get("/:id", async (req: Request, res: Response) => {
   try {

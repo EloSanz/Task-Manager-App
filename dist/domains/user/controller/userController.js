@@ -19,7 +19,11 @@ userRouter.post("/register", validateCredentialsUserMiddleware, hashPasswordMidd
     }
     catch (error) {
         console.log("Error:", error);
-        return res.status(409).json({ message: "User already exists" });
+        return res
+            .status(409)
+            .json({
+            message: "Username is already in use. Please choose a different username.",
+        });
     }
 });
 userRouter.post("/login", validateCredentialsUserMiddleware, async (req, res) => {
