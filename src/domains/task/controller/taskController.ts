@@ -327,9 +327,20 @@ taskRouter.get("/", async (req: Request, res: Response) => {
   }
 });
 
+function parseAndValidateId(id: string): number | null {
+  const parsedId = parseInt(id, 10);
+  return isNaN(parsedId) ? null : parsedId;
+}
+
 taskRouter.get("/:id", async (req: Request, res: Response) => {
   try {
-    const taskId = req.params.id;
+    const taskIdString = req.params.id;
+    const taskId: number | null = parseAndValidateId(taskIdString);
+
+    if (taskId === null) {
+      return res.status(400).json({ message: "Invalid task ID format" });
+    }
+
     const task = await taskService.getTaskById(taskId);
     if (task) {
       const taskModel = new TaskModel(task);
@@ -342,9 +353,10 @@ taskRouter.get("/:id", async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Error retrieving task" });
   }
 });
+
 taskRouter.post("/", async (req: Request, res: Response) => {
   try {
-    const { title, description, status } = req.body;
+    const { title, description, status, userId } = req.body;
     const validationErrors = await validateTask({ title, description, status });
     if (validationErrors.length > 0) {
       return res.status(400).json({ errors: validationErrors });
@@ -353,6 +365,7 @@ taskRouter.post("/", async (req: Request, res: Response) => {
       title,
       description,
       status,
+      userId,
     });
     const taskModel = new TaskModel(newTask);
     return res.status(201).json(taskModel);
@@ -363,7 +376,12 @@ taskRouter.post("/", async (req: Request, res: Response) => {
 });
 taskRouter.put("/", async (req: Request, res: Response) => {
   try {
-    const taskId = req.params.id;
+    const taskIdString = req.params.id;
+    const taskId: number | null = parseAndValidateId(taskIdString);
+
+    if (taskId === null) {
+      return res.status(400).json({ message: "Invalid task ID format" });
+    }
     const { title, description, status } = req.body;
     const validationErrors = await validateTaskUpdate({
       title,
@@ -387,7 +405,12 @@ taskRouter.put("/", async (req: Request, res: Response) => {
 });
 taskRouter.delete("/", async (req: Request, res: Response) => {
   try {
-    const taskId = req.params.id;
+    const taskIdString = req.params.id;
+    const taskId: number | null = parseAndValidateId(taskIdString);
+
+    if (taskId === null) {
+      return res.status(400).json({ message: "Invalid task ID format" });
+    }
     await taskService.deleteTask(taskId);
     return res.status(200).json({ message: "Task deleted successfully" });
   } catch (error) {

@@ -9,7 +9,7 @@ export class TaskService {
     return this.taskRepository.getAllTasks();
   }
 
-  async getTaskById(id: string) {
+  async getTaskById(id: number) {
     return this.taskRepository.getTaskById(id);
   }
 
@@ -17,11 +17,11 @@ export class TaskService {
     return this.taskRepository.createTask(dto);
   }
 
-  async updateTask(id: string, dto: UpdateTaskDto) {
+  async updateTask(id: number, dto: UpdateTaskDto) {
     return this.taskRepository.updateTask(id, dto);
   }
 
-  async deleteTask(id: string) {
+  async deleteTask(id: number) {
     return this.taskRepository.deleteTask(id);
   }
 }

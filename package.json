@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/app.js",
-    "dev": "ts-node --project tsconfig.json ./src/app.ts"
+    "start": "node dist/app.js"
   },
   "dependencies": {
     "@prisma/client": "^5.17.0",

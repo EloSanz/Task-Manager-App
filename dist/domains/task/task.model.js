@@ -6,5 +6,6 @@ export class TaskModel {
         this.status = task.status;
         this.createdAt = task.createdAt;
         this.updatedAt = task.updatedAt;
+        this.userId = task.userId;
     }
 }
