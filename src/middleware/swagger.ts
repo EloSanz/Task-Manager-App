@@ -8,7 +8,7 @@ const options = {
     info: {
       title: 'Task API',
       version: '1.0.0',
-      description: 'Documentation For Task API',
+      description: 'Documentation For Task Manager API',
     },
     components: {
       securitySchemes: {
@@ -29,8 +29,8 @@ const options = {
         url: `http://localhost:${PORT}`,
       },
     ],
-  },
-  apis: ['src/controller/*.ts', 'src/middleware/authentication.ts'], 
+  },                //.ts
+  apis: ['src/controller/*', 'src/middleware/authentication.ts'], 
 };
 
 export const swaggerSpec = swaggerJsdoc(options);

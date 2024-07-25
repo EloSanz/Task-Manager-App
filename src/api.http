@@ -3,7 +3,7 @@ POST http://localhost:8000/auth/register
 Content-Type: application/json
 
 {
-  "username": "test 8",
+  "username": "test 9",
   "password": "password"
 }
 ### Loggin
@@ -16,7 +16,7 @@ Content-Type: application/json
 }
 ### GET ALL TASK
 GET http://localhost:8000/task
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiJ0ZXN0IDgiLCJpYXQiOjE3MjE4MzI4MjUsImV4cCI6MTcyMTgzNjQyNX0.r1NH3qc--mIXJ5-Umr-ZtVN4ZDKg76xxh9MRf2-qwR8 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiJ0ZXN0IDgiLCJpYXQiOjE3MjE4NDIwMzEsImV4cCI6MTcyMTg0NTYzMX0.HTz3oarC-6PABuxFWZcNOD1RQOHMdWuofzk0MDLQ8n8 
 ### NEW TASK
 POST http://localhost:8000/task/
 Content-Type: application/json

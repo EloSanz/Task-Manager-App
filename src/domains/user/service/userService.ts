@@ -15,9 +15,8 @@ export class UserService {
         if (error.message.includes("P2002")) {// Prisma error code for unique constraint violation
           throw new Error("User already exists");
         }
-        throw new Error("Error creating user");
       }
-      throw new Error("Unknown error occurred creating user");
+        throw new Error("Error creating user");
     }
   }
 
@@ -35,4 +34,5 @@ export class UserService {
 
     return { user, token };
   }
+  
 }

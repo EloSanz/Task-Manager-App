@@ -33,7 +33,6 @@ userRouter.post(
   }
 );
 
-// Route to login a user
 userRouter.post("/login", validateCredentialsUserMiddleware, async (req: Request, res: Response) => {
   const { username, password } = req.body;
   try {
