@@ -18,9 +18,10 @@
  *         - status
  *         - createdAt
  *         - updatedAt
+ *         - userId
  *       properties:
  *         id:
- *           type: string
+ *           type: integer
  *           description: The unique identifier for the task
  *         title:
  *           type: string
@@ -43,6 +44,9 @@
  *           type: string
  *           format: date-time
  *           description: The date and time when the task was last updated
+ *         userId:
+ *           type: integer
+ *           description: The ID of the user associated with the task
  *
  *     Error401:
  *       type: object
@@ -124,7 +128,7 @@
  *         required: true
  *         description: The ID of the task to retrieve
  *         schema:
- *           type: string
+ *           type: integer
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -134,6 +138,12 @@
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/TaskModel'
+ *       400:
+ *         description: Invalid task ID format
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  *       404:
  *         description: Task not found
  *         content:
@@ -174,10 +184,14 @@
  *                   - IN_PROGRESS
  *                   - COMPLETED
  *                 description: The status of the task
+ *               userId:
+ *                 type: integer
+ *                 description: The ID of the user associated with the task
  *             required:
  *               - title
  *               - description
  *               - status
+ *               - userId
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -213,7 +227,7 @@
  *         required: true
  *         description: The ID of the task to update
  *         schema:
- *           type: string
+ *           type: integer
  *     requestBody:
  *       required: true
  *       content:
@@ -279,7 +293,7 @@
  *         required: true
  *         description: The ID of the task to delete
  *         schema:
- *           type: string
+ *           type: integer
  *     security:
  *       - bearerAuth: []
  *     responses:
