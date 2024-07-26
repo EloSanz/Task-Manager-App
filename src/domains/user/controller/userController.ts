@@ -1,13 +1,13 @@
 import { Router, Request, Response } from "express";
 import dotenv from "dotenv";
-import prisma from "../../../prisma/prismaClient.js";
-import { UserRepository } from "../repository/user-repository.js";
-import { UserService } from "../service/userService.js";
-import { UserModel } from "../user.model.js";
-import { validateCredentialsUserMiddleware } from "../../../middleware/validateCreateUserMiddleware.js";
-import { hashPasswordMiddleware } from "../../../middleware/hashPasswordMiddleware.js";
-import { parseAndValidateId } from "../../task/controller/taskController.js";
-import { AppError, UserNotFoundError } from "../../../errors/customErrors.js";
+import prisma from "../../../prisma/prismaClient";
+import { UserRepository } from "../repository/user-repository";
+import { UserService } from "../service/userService";
+import { UserModel } from "../user.model";
+import { validateCredentialsUserMiddleware } from "../../../middleware/validateCreateUserMiddleware";
+import { hashPasswordMiddleware } from "../../../middleware/hashPasswordMiddleware";
+import { parseAndValidateId } from "../../task/controller/taskController";
+import { AppError, UserNotFoundError } from "../../../errors/customErrors";
 
 dotenv.config();
 

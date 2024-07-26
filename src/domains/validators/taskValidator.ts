@@ -1,6 +1,6 @@
 import { validate } from "class-validator";
 import { plainToClass } from "class-transformer";
-import { CreateTaskDto, UpdateTaskDto } from "../task/dto/TaskDto.js";
+import { CreateTaskDto, UpdateTaskDto } from "../task/dto/TaskDto";
 
 export async function validateTask(data: Partial<CreateTaskDto>) {
     const taskDto = plainToClass(CreateTaskDto, data);

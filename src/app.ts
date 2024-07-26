@@ -1,8 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import router from './routes/routes.js';
-import { errorHandler, notFoundHandler } from './middleware/error.handler.js';
-import { swaggerSpec } from './middleware/swagger.js';
+import router from './routes/routes';
+import { errorHandler, notFoundHandler } from './middleware/error.handler';
+import { swaggerSpec } from './middleware/swagger';
 import swaggerUi from 'swagger-ui-express';
 
 dotenv.config();

@@ -2,11 +2,11 @@
   "name": "task-api",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "build": "tsc",
     "start": "node dist/app.js",
-    "dev": "tsc && node dist/app.js"
+    "dev": "tsc && node dist/app.js",
+    "nodemon": "nodemon -L"
   },
   "dependencies": {
     "@prisma/client": "^5.17.0",

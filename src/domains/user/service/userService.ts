@@ -1,8 +1,8 @@
-import { UserNotFoundError } from "../../../errors/customErrors.js";
-import { generateToken } from "../../../middleware/auth-utils.js";
-import { CreateUserDto } from "../dto/userDto.js";
-import { UserRepository } from "../repository/user-repository.js";
-import { UserModel } from "../user.model.js";
+import { UserNotFoundError } from "../../../errors/customErrors";
+import { generateToken } from "../../../middleware/auth-utils";
+import { CreateUserDto } from "../dto/userDto";
+import { UserRepository } from "../repository/user-repository";
+import { UserModel } from "../user.model";
 import bcrypt from "bcrypt";
 
 export class UserService {

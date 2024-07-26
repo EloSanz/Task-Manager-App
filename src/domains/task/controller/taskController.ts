@@ -163,13 +163,13 @@ import { Request, Response, Router } from "express";
 import {
   validateTask,
   validateTaskUpdate,
-} from "../../validators/taskValidator.js";
-import prisma from "../../../prisma/prismaClient.js";
-import { TaskRepository } from "../repository/task.repository.js";
-import { TaskModel } from "../task.model.js";
-import { TaskService } from "../service/task.service.js";
-import { UserRepository } from "../../user/repository/user-repository.js";
-import { AppError } from "../../../errors/customErrors.js";
+} from "../../validators/taskValidator";
+import prisma from "../../../prisma/prismaClient";
+import { TaskRepository } from "../repository/task.repository";
+import { TaskModel } from "../task.model";
+import { TaskService } from "../service/task.service";
+import { UserRepository } from "../../user/repository/user-repository";
+import { AppError } from "../../../errors/customErrors";
 
 const taskRepository = new TaskRepository(prisma);
 const userRepository = new UserRepository(prisma);

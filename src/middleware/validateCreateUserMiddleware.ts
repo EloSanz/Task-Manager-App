@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { validateCreateUser } from "../domains/validators/userValidator.js";
+import { validateCreateUser } from "../domains/validators/userValidator";
 
 export async function validateCredentialsUserMiddleware(
   req: Request,

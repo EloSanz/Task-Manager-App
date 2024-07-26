@@ -1,7 +1,7 @@
-import { TaskRepository } from "../repository/task.repository.js";
-import { CreateTaskDto, UpdateTaskDto } from "../dto/TaskDto.js";
-import { UserRepository } from "../../user/repository/user-repository.js";
-import { UserNotFoundError } from "../../../errors/customErrors.js";
+import { TaskRepository } from "../repository/task.repository";
+import { CreateTaskDto, UpdateTaskDto } from "../dto/TaskDto";
+import { UserRepository } from "../../user/repository/user-repository";
+import { UserNotFoundError } from "../../../errors/customErrors";
 
 export class TaskService {
   constructor(
